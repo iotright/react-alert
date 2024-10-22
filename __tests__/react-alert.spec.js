@@ -1,15 +1,15 @@
 import React, { useRef, createContext } from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, cleanup, act, wait } from '@testing-library/react'
-import kebabCase from 'lodash.kebabcase'
+import { paramCase } from 'change-case'
 import { positions, Provider, useAlert, withAlert } from '../src'
 import { getStyles } from '../src/Wrapper'
 
 jest.useFakeTimers()
 
-const styleString = style =>
+const styleString = (style) =>
   Object.entries(style).reduce((styleString, [propName, propValue]) => {
-    return `${styleString}${kebabCase(propName)}:${propValue};`
+    return `${styleString}${paramCase(propName)}:${propValue};`
   }, '')
 
 describe('react-alert', () => {
@@ -73,7 +73,7 @@ describe('react-alert', () => {
   })
 
   describe('react-alert with one Provider and different types of alerts', () => {
-    let renderApp = CustomChild => {
+    let renderApp = (CustomChild) => {
       const App = () => (
         <Provider template={Template}>
           <CustomChild />
@@ -166,8 +166,8 @@ describe('react-alert', () => {
     })
 
     it('should accept different position options', () => {
-      Object.values(positions).forEach(position => {
-        const App = props => (
+      Object.values(positions).forEach((position) => {
+        const App = (props) => (
           <Provider
             data-testid="provider"
             template={Template}
@@ -191,7 +191,7 @@ describe('react-alert', () => {
 
     it('should accept a containerStyle option', () => {
       const containerStyle = { zIndex: 50, border: '1px solid red' }
-      const App = props => (
+      const App = (props) => (
         <Provider
           data-testid="provider"
           template={Template}
@@ -209,7 +209,7 @@ describe('react-alert', () => {
     })
 
     it('should respect the given offset option', () => {
-      const App = props => (
+      const App = (props) => (
         <Provider template={Template} offset="30px">
           <Child />
         </Provider>
@@ -234,7 +234,7 @@ describe('react-alert', () => {
         )
       }
 
-      const App = props => (
+      const App = (props) => (
         <Provider
           data-testid="provider"
           template={Template}
@@ -312,7 +312,7 @@ describe('react-alert', () => {
         )
       }
 
-      const App = props => (
+      const App = (props) => (
         <Provider
           data-testid="provider"
           template={Template}
@@ -363,7 +363,7 @@ describe('react-alert', () => {
         )
       }
 
-      const App = props => (
+      const App = (props) => (
         <Provider template={Template} data-testid="provider">
           <Child />
         </Provider>
@@ -411,7 +411,7 @@ describe('react-alert', () => {
         )
       }
 
-      const App = props => (
+      const App = (props) => (
         <Provider template={Template} data-testid="provider">
           <Child />
         </Provider>
@@ -478,7 +478,7 @@ describe('react-alert', () => {
         )
       }
 
-      const App = props => (
+      const App = (props) => (
         <Provider template={Template}>
           <Provider
             template={Template}
