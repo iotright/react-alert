@@ -1,7 +1,7 @@
 {
   "name": "react-alert",
   "description": "A simple react alert component - we fork repo from schiehll/react-alert",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "author": "IoTRight",
   "main": "dist/cjs/react-alert.js",
   "module": "dist/esm/react-alert.js",
@@ -37,19 +37,19 @@
     "@rollup/plugin-replace": "^5.0.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
+    "change-case": "^4.0.0",
     "eslint": "^9.13.0",
     "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "glob": "^9.0.0",
     "husky": "^9.1.6",
     "jest-cli": "^29.7.0",
     "lint-staged": "^15.2.10",
-    "change-case": "^4.0.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rollup": "^4.24.0",
-    "rollup-plugin-uglify": "^6.0.4",
-    "glob": "^9.0.0"
+    "rollup-plugin-uglify": "^6.0.4"
   },
   "peerDependencies": {
     "react": "^18.3.1",
