@@ -1,6 +1,6 @@
 const path = require('path')
 const execSync = require('child_process').execSync
-const { pascalCase } = require('change-case') // updated import
+const changeCase = require('change-case')
 
 process.chdir(path.resolve(__dirname, '..'))
 
@@ -23,14 +23,14 @@ exec(`rollup -c scripts/config.js -f es -o dist/esm/${packageName}.js`)
 console.log('\nBuilding UMD modules...')
 
 exec(
-  `rollup -c scripts/config.js -f umd -n ${pascalCase(packageName)} -o dist/umd/${packageName}.js`,
+  `rollup -c scripts/config.js -f umd -n ${changeCase.pascalCase(packageName)} -o dist/umd/${packageName}.js`,
   {
     BUILD_ENV: 'development',
   },
 )
 
 exec(
-  `rollup -c scripts/config.js -f umd -n ${pascalCase(packageName)} -o dist/umd/${packageName}.min.js`,
+  `rollup -c scripts/config.js -f umd -n ${changeCase.pascalCase(packageName)} -o dist/umd/${packageName}.min.js`,
   {
     BUILD_ENV: 'production',
   },

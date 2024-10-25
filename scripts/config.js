@@ -1,8 +1,8 @@
-const resolve = require('@rollup/plugin-node-resolve') // updated
-const replace = require('@rollup/plugin-replace') // updated
-const babel = require('@rollup/plugin-babel').babel // updated
-const commonjs = require('@rollup/plugin-commonjs') // updated
-const { uglify } = require('rollup-plugin-uglify') // remains the same
+const resolve = require('@rollup/plugin-node-resolve')
+const replace = require('@rollup/plugin-replace')
+const babel = require('@rollup/plugin-babel').babel
+const commonjs = require('@rollup/plugin-commonjs')
+const { uglify } = require('rollup-plugin-uglify')
 
 const getPlugins = (env) => {
   const plugins = [resolve()]
@@ -10,7 +10,7 @@ const getPlugins = (env) => {
   if (env) {
     plugins.push(
       replace({
-        preventAssignment: true, // recommended with new @rollup/plugin-replace
+        preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify(env),
       }),
     )
@@ -19,7 +19,7 @@ const getPlugins = (env) => {
   plugins.push(
     babel({
       exclude: 'node_modules/**',
-      babelHelpers: 'bundled', // required for @rollup/plugin-babel
+      babelHelpers: 'bundled',
       presets: [
         ['@babel/preset-env', { modules: false }],
         '@babel/preset-react',
