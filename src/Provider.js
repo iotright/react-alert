@@ -3,7 +3,7 @@ import React, {
   useState,
   useRef,
   useEffect,
-  useCallback
+  useCallback,
 } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionGroup } from 'react-transition-group'
@@ -16,14 +16,16 @@ import { groupBy } from './helpers'
 
 const Provider = ({
   children,
-  offset,
-  position,
-  timeout,
-  type,
-  transition,
-  containerStyle,
-  template: AlertComponent,
-  context: Context,
+  offset = '10px',
+  position = positions.TOP_CENTER,
+  timeout = 0,
+  type = types.INFO,
+  transition = transitions.FADE,
+  containerStyle = {
+    zIndex: 100,
+  },
+  context = DefaultContext,
+  template = AlertComponent,
   ...props
 }) => {
   const root = useRef(null)
@@ -43,10 +45,10 @@ const Provider = ({
     }
   }, [])
 
-  const remove = useCallback(alert => {
-    setAlerts(currentAlerts => {
+  const remove = useCallback((alert) => {
+    setAlerts((currentAlerts) => {
       const lengthBeforeRemove = currentAlerts.length
-      const filteredAlerts = currentAlerts.filter(a => a.id !== alert.id)
+      const filteredAlerts = currentAlerts.filter((a) => a.id !== alert.id)
 
       if (lengthBeforeRemove > filteredAlerts.length && alert.options.onClose) {
         alert.options.onClose()
@@ -62,21 +64,19 @@ const Provider = ({
 
   const show = useCallback(
     (message = '', options = {}) => {
-      const id = Math.random()
-        .toString(36)
-        .substr(2, 9)
+      const id = Math.random().toString(36).substr(2, 9)
 
       const alertOptions = {
         position: options.position || position,
         timeout,
         type,
-        ...options
+        ...options,
       }
 
       const alert = {
         id,
         message,
-        options: alertOptions
+        options: alertOptions,
       }
 
       alert.close = () => remove(alert)
@@ -91,12 +91,12 @@ const Provider = ({
         timersId.current.push(timerId)
       }
 
-      setAlerts(state => state.concat(alert))
+      setAlerts((state) => state.concat(alert))
       if (alert.options.onOpen) alert.options.onOpen()
 
       return alert
     },
-    [position, remove, timeout, type]
+    [position, remove, timeout, type],
   )
 
   const success = useCallback(
@@ -104,7 +104,7 @@ const Provider = ({
       options.type = types.SUCCESS
       return show(message, options)
     },
-    [show]
+    [show],
   )
 
   const error = useCallback(
@@ -112,7 +112,7 @@ const Provider = ({
       options.type = types.ERROR
       return show(message, options)
     },
-    [show]
+    [show],
   )
 
   const info = useCallback(
@@ -120,7 +120,7 @@ const Provider = ({
       options.type = types.INFO
       return show(message, options)
     },
-    [show]
+    [show],
   )
 
   alertContext.current = {
@@ -130,10 +130,10 @@ const Provider = ({
     removeAll,
     success,
     error,
-    info
+    info,
   }
 
-  const alertsByPosition = groupBy(alerts, alert => alert.options.position)
+  const alertsByPosition = groupBy(alerts, (alert) => alert.options.position)
 
   return (
     <Context.Provider value={alertContext}>
@@ -141,7 +141,7 @@ const Provider = ({
       {root.current &&
         createPortal(
           <Fragment>
-            {Object.keys(positions).map(key => {
+            {Object.keys(positions).map((key) => {
               const position = positions[key]
 
               return (
@@ -153,7 +153,7 @@ const Provider = ({
                   {...props}
                 >
                   {alertsByPosition[position]
-                    ? alertsByPosition[position].map(alert => (
+                    ? alertsByPosition[position].map((alert) => (
                         <Transition type={transition} key={alert.id}>
                           <AlertComponent
                             style={{ margin: offset, pointerEvents: 'all' }}
@@ -166,7 +166,7 @@ const Provider = ({
               )
             })}
           </Fragment>,
-          root.current
+          root.current,
         )}
     </Context.Provider>
   )
@@ -175,23 +175,23 @@ const Provider = ({
 Provider.propTypes = {
   offset: PropTypes.string,
   position: PropTypes.oneOf(
-    Object.keys(positions).map(position => positions[position])
+    Object.keys(positions).map((position) => positions[position]),
   ),
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(Object.keys(types).map(type => types[type])),
+  type: PropTypes.oneOf(Object.keys(types).map((type) => types[type])),
   transition: PropTypes.oneOf(
-    Object.keys(transitions).map(transition => transitions[transition])
+    Object.keys(transitions).map((transition) => transitions[transition]),
   ),
   containerStyle: PropTypes.object,
   template: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func,
-    PropTypes.elementType
+    PropTypes.elementType,
   ]).isRequired,
   context: PropTypes.shape({
     Provider: PropTypes.object,
-    Consumer: PropTypes.object
-  })
+    Consumer: PropTypes.object,
+  }),
 }
 
 Provider.defaultProps = {
@@ -201,9 +201,9 @@ Provider.defaultProps = {
   type: types.INFO,
   transition: transitions.FADE,
   containerStyle: {
-    zIndex: 100
+    zIndex: 100,
   },
-  context: DefaultContext
+  context: DefaultContext,
 }
 
 export default Provider
