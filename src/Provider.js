@@ -194,16 +194,4 @@ Provider.propTypes = {
   }),
 }
 
-Provider.defaultProps = {
-  offset: '10px',
-  position: positions.TOP_CENTER,
-  timeout: 0,
-  type: types.INFO,
-  transition: transitions.FADE,
-  containerStyle: {
-    zIndex: 100,
-  },
-  context: DefaultContext,
-}
-
 export default Provider
