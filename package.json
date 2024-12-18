@@ -1,7 +1,7 @@
 {
   "name": "react-alert",
   "description": "A simple react alert component - we fork repo from schiehll/react-alert",
-  "version": "7.1.3",
+  "version": "7.1.4",
   "author": "IoTRight",
   "main": "dist/cjs/react-alert.js",
   "module": "dist/esm/react-alert.js",
