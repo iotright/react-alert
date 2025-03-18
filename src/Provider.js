@@ -24,8 +24,8 @@ const Provider = ({
   containerStyle = {
     zIndex: 100,
   },
-  context = DefaultContext,
-  template = AlertComponent,
+  template: AlertComponent,
+  context: Context = DefaultContext,
   ...props
 }) => {
   const root = useRef(null)
@@ -124,7 +124,7 @@ const Provider = ({
   )
 
   alertContext.current = {
-    alerts,
+    alerts: [],
     show,
     remove,
     removeAll,
